@@ -15,6 +15,10 @@
 # 여러 방법을 설명할 수 있다. -- 어떤 새로운 주제를 설명할 수 있는지 알아보자.
 # set을 이용하면 그 숫자가 있는지 금방 알 수 있다.
 
+# 5. 중복되는 것 합치기
+
+# 6. 함수로 만들어서 읽기 쉽게 만들기
+
 from random import randint
 
 number1 = randint(0, 9)
@@ -37,32 +41,18 @@ while not isSuccess:
     guessing_number = input("3자리 번호를 입력하시오")
     states = {'Strike': 0, 'Ball': 0, 'Out': 0}
 
-    if guessing_number[0] in target_number:
-        if guessing_number[0] == target_number[0]:
-            states['Strike'] += 1
+    for i in range(3):
+        if guessing_number[i] in target_number:
+            if guessing_number[i] == target_number[i]:
+                states['Strike'] += 1
+            else:
+                states['Ball'] += 1
         else:
-            states['Ball'] += 1
-    else:
-        states['Out'] += 1
-
-    if guessing_number[1] in target_number:
-        if guessing_number[1] == target_number[1]:
-            states['Strike'] += 1
-        else:
-            states['Ball'] += 1
-    else:
-        states['Out'] += 1
-
-    if guessing_number[2] in target_number:
-        if guessing_number[2] == target_number[2]:
-            states['Strike'] += 1
-        else:
-            states['Ball'] += 1
-    else:
-        states['Out'] += 1
+            states['Out'] += 1
 
     if states['Strike'] == 3:
         isSuccess = True
-        print("정답입니다. {}번만에 성공했습니다.".format(challenges))
+        print("정답은 {}입니다.".format(target_number))
+        print("맞췄습니다. {}번만에 성공했습니다.".format(challenges))
     else:
         print("{Strike} 스트라이크 {Ball} 볼 {Out} 아웃".format(**states))
