@@ -19,9 +19,20 @@
 
 # 6. 함수로 만들어서 읽기 쉽게 만들기
 
+# 7. 각 함수의 __doc__을 작성한다.
+
+# 8. 글자환경 옵션 넣기
+# -h, --help
+# -t, --times N 몇 번 플레이할 것인지 정할 수 있다.
+# -v, --verbose 자세한 과정을 출력한다.
+# -a, --auto {play_times} 자동으로 문제 풀기
+
+# 9. 자동으로 문제풀이하는 기능을 넣는다.
+
+
 from random import randint
 
-def init_game():
+def get_target_number():
     number1 = randint(0, 9)
 
     while True:
@@ -41,7 +52,7 @@ def play_game(target_number):
 
     while not isSuccess:
         challenges += 1
-        guessing_number = input("3자리 번호를 입력하시오")
+        guessing_number = input("3자리 번호를 입력하시오: ")
         states = {'Strike': 0, 'Ball': 0, 'Out': 0}
 
         for i in range(3):
@@ -61,4 +72,5 @@ def play_game(target_number):
             print("{Strike} 스트라이크 {Ball} 볼 {Out} 아웃".format(**states))
 
 if __name__ == '__main__':
-    play_game(init_game())
+    target_number = get_target_number()
+    play_game(target_number)
