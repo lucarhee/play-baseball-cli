@@ -20,6 +20,9 @@
 # 6. 함수로 만들어서 읽기 쉽게 만들기
 
 # 7. 각 함수의 __doc__을 작성한다.
+# 설명글을 잘 쓰는 방법을 배울 수 있다.
+
+############################ 여기까지 함.
 
 # 8. 글자환경 옵션 넣기
 # -h, --help
@@ -28,11 +31,26 @@
 # -a, --auto {play_times} 자동으로 문제 풀기
 
 # 9. 자동으로 문제풀이하는 기능을 넣는다.
+# get_target_number() 함수를 generate_random_number로 바꾸고
+# 답을 만드는 과정에서 이용할 수 있다.
+# play_game에서 자동 옵션을 받아서 자동으로 풀게 할 수 있다.
+# 아니면 따로 자동으로 푸는 기능을 만들어 폴 수 있다.
 
+
+# 10. 자동으로 맞추는 번호의 길이를 임의로 주고,
+# 자동으로 맞추는 기능을 가지고
+# 자리수에 따른 맞출 때까지 걸리는 횟수의 데이터를 얻는다.
+# 그 데이터를 가지고 그래프를 그려본다.
+# 풀이방법(알고리즘)에 따른 성능을 알아본다.
+
+# 11. 클래스 적용해보기
+# 12. generator, iterator 등 다양한 방법으로 바꿔 보기
 
 from random import randint
 
 def get_target_number():
+    """맞출 숫자를 만든다"""
+
     number1 = randint(0, 9)
 
     while True:
@@ -46,12 +64,17 @@ def get_target_number():
     return target_number
 
 def play_game(target_number):
+    """숫자를 맞춘다
+    입력한 숫자와 비교하여 결과를 보여준다.
+    몇 번만에 맞췄는지 보여준다.
+    """
     # user input for guessing 3 numbers
     isSuccess = False
     challenges = 0
 
     while not isSuccess:
         challenges += 1
+        print("------------{}번째 도전---------------".format(challenges))
         guessing_number = input("3자리 번호를 입력하시오: ")
         states = {'Strike': 0, 'Ball': 0, 'Out': 0}
 
@@ -66,6 +89,7 @@ def play_game(target_number):
 
         if states['Strike'] == 3:
             isSuccess = True
+            print("======================================")
             print("정답은 {}입니다.".format(target_number))
             print("맞췄습니다. {}번만에 성공했습니다.".format(challenges))
         else:
