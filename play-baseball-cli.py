@@ -21,38 +21,44 @@
 
 from random import randint
 
-number1 = randint(0, 9)
+def init_game():
+    number1 = randint(0, 9)
 
-while True:
-    number2 = randint(0, 9)
-    number3 = randint(0, 9)
+    while True:
+        number2 = randint(0, 9)
+        number3 = randint(0, 9)
 
-    if number1 != number2 and number1 != number3 and number2 != number3:
-        break
+        if number1 != number2 and number1 != number3 and number2 != number3:
+            break
 
-target_number = '{}{}{}'.format(number1, number2, number3)
+    target_number = '{}{}{}'.format(number1, number2, number3)
+    return target_number
 
-# user input for guessing 3 numbers
-isSuccess = False
-challenges = 0
+def play_game(target_number):
+    # user input for guessing 3 numbers
+    isSuccess = False
+    challenges = 0
 
-while not isSuccess:
-    challenges += 1
-    guessing_number = input("3자리 번호를 입력하시오")
-    states = {'Strike': 0, 'Ball': 0, 'Out': 0}
+    while not isSuccess:
+        challenges += 1
+        guessing_number = input("3자리 번호를 입력하시오")
+        states = {'Strike': 0, 'Ball': 0, 'Out': 0}
 
-    for i in range(3):
-        if guessing_number[i] in target_number:
-            if guessing_number[i] == target_number[i]:
-                states['Strike'] += 1
+        for i in range(3):
+            if guessing_number[i] in target_number:
+                if guessing_number[i] == target_number[i]:
+                    states['Strike'] += 1
+                else:
+                    states['Ball'] += 1
             else:
-                states['Ball'] += 1
-        else:
-            states['Out'] += 1
+                states['Out'] += 1
 
-    if states['Strike'] == 3:
-        isSuccess = True
-        print("정답은 {}입니다.".format(target_number))
-        print("맞췄습니다. {}번만에 성공했습니다.".format(challenges))
-    else:
-        print("{Strike} 스트라이크 {Ball} 볼 {Out} 아웃".format(**states))
+        if states['Strike'] == 3:
+            isSuccess = True
+            print("정답은 {}입니다.".format(target_number))
+            print("맞췄습니다. {}번만에 성공했습니다.".format(challenges))
+        else:
+            print("{Strike} 스트라이크 {Ball} 볼 {Out} 아웃".format(**states))
+
+if __name__ == '__main__':
+    play_game(init_game())
